@@ -96,40 +96,29 @@ BEGIN
       AND MONTH(created_at) = p_month;
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-   
-
     DELETE FROM agent_salaries;
-
     OPEN closed_deals_cursor;
-
     fetch_loop: LOOP
         FETCH closed_deals_cursor INTO cur_agent_id, cur_deal_type, cur_price, agent_commission_rate, cur_estate_id;
         IF done THEN
             LEAVE fetch_loop;
         END IF;
-
         IF cur_deal_type = 1 THEN
             SET salary = (cur_price * (SELECT commission_rate FROM realty WHERE estate_id = cur_estate_id)/100) * (agent_commission_rate / 100);
         END IF;
         IF cur_deal_type = 2 THEN
             SET salary = (cur_price *(SELECT commission_rate FROM realty WHERE estate_id = cur_estate_id)/100) * (agent_commission_rate / 100);
         END IF;
-
         INSERT INTO agent_salaries (estate_agent_id, total_salary)
         VALUES (cur_agent_id, salary)
         ON DUPLICATE KEY UPDATE
         total_salary = total_salary + VALUES(total_salary);
     END LOOP;
-
     CLOSE closed_deals_cursor;
-
     SELECT agent_salaries.*, employees.fullname,employees.employee_rank,employees.bank_account, cities.city_name
     FROM agent_salaries
     JOIN employees ON agent_salaries.estate_agent_id = employees.employee_id
     JOIN cities ON employees.city_id = cities.city_id;
-
-
     DELETE FROM agent_salaries;
 END;
 
@@ -177,4 +166,7 @@ BEGIN
 END;
 
 
-CALL get_deals_by_user_id(3)
+CALL get_deals_by_user_id(12)
+
+
+

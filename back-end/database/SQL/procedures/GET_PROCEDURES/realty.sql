@@ -22,6 +22,9 @@ BEGIN
 END;
 
 
+
+
+
 CREATE PROCEDURE get_realty_by_owner(
 IN p_owner_id INT
 )
@@ -46,6 +49,10 @@ END;
 
 
 -- CALL search_realty(5,500,5000000,2,2,1,5);
+CALL search_realty(3,NULL ,NULL,2,5,1,10);
+CALL search_realty(3,NULL ,NULL,2,5,1,10);
+CALL search_realty(3,NULL ,NULL,2,5,1,10);
+CALL search_realty(3,NULL ,NULL,2,5,1,10);
 CALL search_realty(3,NULL ,NULL,2,5,1,10);
 
 CREATE PROCEDURE search_realty(

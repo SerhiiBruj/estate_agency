@@ -87,19 +87,6 @@ BEGIN
     VALUES (p_owner_id, p_customer_id, p_estate_agent_id, p_estate_id, p_pokaz_date);
 END;
 
--- Процедура для створення нового платежу +
-CREATE PROCEDURE create_payment(
-    IN p_customer_id INT,
-    IN p_owner_id INT,
-    IN p_estate_agent_id INT,
-    IN p_estate_id INT,
-    IN p_deal_id INT,
-    IN p_amount DECIMAL(10, 2)
-)
-BEGIN
-    INSERT INTO payments (customer_id, owner_id, estate_agent_id, estate_id, deal_id, amount)
-    VALUES (p_customer_id, p_owner_id, p_estate_agent_id, p_estate_id, p_deal_id, p_amount);
-END ;
 
 
 -- Процедура для скасування угоди та додавання повідомлення в notifications
